@@ -1,0 +1,84 @@
+.addProduct {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  //   align-items: center;
+  // justify-content: center;
+  align-items: center;
+  .link {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    margin: 40px 0px;
+    font-size: 18px;
+    // width: 100%;
+  }
+
+  .addProd {
+    font-size: 30px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .warning-setup {
+    margin: 10px 0px;
+    display: block;
+  }
+  // background-color: #ddd;
+  form {
+    width: 50%;
+    .form-control {
+      width: 100%;
+      margin-bottom: 20px;
+      input {
+        width: 100%;
+        height: 40px;
+        font-size: 18px;
+        padding: 20px;
+        border: 1px solid rgb(238, 238, 238);
+        outline-style: none;
+      }
+
+      select {
+        width: 100%;
+        height: 40px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        font-size: 20px;
+        background-color: white;
+        outline-style: none;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+        border: 1px solid #ddd;
+        outline-style: none;
+        padding: 20px;
+        font-size: 22px;
+      }
+    }
+
+    .file-upload {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      height: 70px;
+      margin-bottom: 20px;
+      .file-input {
+        display: none;
+      }
+      .preview-img {
+        width: 200px;
+        height: 70px;
+        border-radius: 5px;
+      }
+    }
+  }
+  @media screen and (max-width: 600px) {
+    form {
+      width: 90%;
+    }
+  }
+}

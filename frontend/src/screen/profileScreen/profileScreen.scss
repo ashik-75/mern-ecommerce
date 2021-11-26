@@ -1,0 +1,95 @@
+.profileScreen {
+  min-height: 100vh;
+  padding: 20px 80px;
+  @media screen and (max-width: 600px) {
+    padding: 20px 20px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    thead {
+      tr {
+        th {
+          border: 1px solid #ddd;
+          padding: 10px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: center;
+          .table-img {
+            width: 100px;
+            height: 50px;
+            // object-fit: cover;
+            // object-position: center;
+          }
+        }
+        &:nth-child(even) {
+          background-color: rgb(241, 240, 240);
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    table {
+      thead {
+        display: none;
+      }
+      tbody {
+        tr {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 10px;
+          td {
+            text-align: right;
+            position: relative;
+            &::before {
+              content: attr(data-label);
+              font-weight: bold;
+              position: absolute;
+              left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    padding: 20px 30px;
+
+    .right {
+      flex: 2;
+      .top {
+        font-size: 22px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+      }
+      .down {
+        letter-spacing: 2px;
+        text-transform: capitalize;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .user-info {
+    padding: 30px;
+    .name {
+      span {
+        display: inline-block;
+        padding: 5px 0px;
+        letter-spacing: 1px;
+        &.fullName {
+          font-size: 22px;
+          letter-spacing: 2px;
+        }
+      }
+    }
+  }
+}

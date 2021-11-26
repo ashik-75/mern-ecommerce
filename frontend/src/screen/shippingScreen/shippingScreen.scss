@@ -1,0 +1,105 @@
+.shippingScreen {
+  min-height: 100vh;
+  padding: 50px;
+  background-color: #ddd;
+  .paymentOption {
+    min-height: 100px;
+    width: 100%;
+    background-color: white;
+    color: black;
+    .payment-title {
+      padding: 20px;
+      font-size: 20px;
+      letter-spacing: 2px;
+      border: 1px solid #ddd;
+    }
+    .payment-option {
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+  .shippingAddress {
+    min-height: 100px;
+    width: 100%;
+    background-color: white;
+    color: black;
+    margin-bottom: 20px;
+    .shipping-title {
+      padding: 20px;
+      font-size: 20px;
+      letter-spacing: 2px;
+      border: 1px solid #ddd;
+    }
+    .shipping-details {
+      padding: 20px;
+      .shipping-details-cont {
+        margin-bottom: 20px;
+      }
+      .icons {
+        display: flex;
+        justify-content: space-between;
+      }
+      .show-address {
+        div {
+          margin-bottom: 5px;
+          font-size: 18px;
+          letter-spacing: 2px;
+          span {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .shipping-new-add {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: black;
+      border-top: 1px solid #ddd;
+    }
+  }
+  .confirm-order {
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background-color: rgb(0, 0, 0);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+  }
+  .checkout-summary {
+    width: 100%;
+    min-height: 200px;
+    background-color: white;
+    padding: 20px;
+    .title {
+      font-size: 20px;
+      // color: #ddd;
+      letter-spacing: 2px;
+      padding-bottom: 10px;
+    }
+    .checkout-container {
+      .summary {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0px;
+        border-bottom: 1px solid #ddd;
+        letter-spacing: 1px;
+      }
+      .payable {
+        font-weight: bold;
+        border-bottom: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 20px;
+  }
+}

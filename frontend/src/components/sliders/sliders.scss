@@ -1,0 +1,20 @@
+.slider-container {
+  cursor: pointer;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  .slide {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin: 0 auto;
+    .slider-content {
+      color: white;
+      font-size: 50px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
