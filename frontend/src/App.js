@@ -19,6 +19,7 @@ import ShippingSuccess from "./screen/shippingScreen/ShippingSuccess";
 import Footer from "./components/footer/Footer";
 import NetPractise from "./components/skeleton/NetPractise";
 import UserOrder from "./screen/profileScreen/UserOrder";
+import ProductEdit from "./screen/adminScreen/adminUsersList/product/ProductEdit";
 
 const App = () => {
   const { user } = useSelector((state) => state.authSlice);
@@ -70,9 +71,21 @@ const App = () => {
           }
         />
         <Route
+          path="/admin/product/:id/edit"
+          element={
+            isLoggedIn && user.isAdmin ? <ProductEdit /> : <Navigate to="/" />
+          }
+        />
+        <Route
           path="/admin/orders"
           element={
             isLoggedIn && user.isAdmin ? <OrderList /> : <Navigate to="/" />
+          }
+        />
+        <Route
+          path="/admin/user/:id/edit"
+          element={
+            isLoggedIn && user.isAdmin ? <UserEdit /> : <Navigate to="/" />
           }
         />
         <Route

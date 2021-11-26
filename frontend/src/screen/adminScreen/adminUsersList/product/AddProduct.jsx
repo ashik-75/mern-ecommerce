@@ -164,7 +164,7 @@ const AddProduct = () => {
             onChange={handleAddValue}
             name="description"
             id="w3review"
-            rows="4"
+            rows="10"
             cols="50"
           ></textarea>
         </div>

@@ -1,13 +1,23 @@
 import React from "react";
 import "./usersList.scss";
-import { useGetAllUsersQuery } from "../../../../store/usersStore/usersStore";
+import {
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
+} from "../../../../store/usersStore/usersStore";
 import { CircularProgress, Alert, IconButton, Button } from "@mui/material";
 import { Check, Clear, Delete, Edit } from "@mui/icons-material";
 import UserEdit from "./UserEdit";
+import { useNavigate } from "react-router-dom";
 
 const UsersList = () => {
+  const navigate = useNavigate();
   const { data, isSuccess, isError, error, isLoading } = useGetAllUsersQuery();
-  console.log("user list data", { data, isSuccess, isError, error, isLoading });
+  const [deleteuser, {}] = useDeleteUserMutation();
+
+  const handleDelete = (id) => {
+    deleteuser(id);
+    console.log("user delete", id);
+  };
 
   return (
     <div className="usersList">
@@ -41,9 +51,20 @@ const UsersList = () => {
                 </td>
                 <td data-label="Actions" className="update-btns">
                   <div className="actions">
-                    <UserEdit id={user._id} />
+                    <Button
+                      onClick={() => navigate(`/admin/user/${user._id}/edit`)}
+                      variant="contained"
+                      color="success"
+                    >
+                      Edit
+                    </Button>
 
-                    <Button sx={{ ml: 1 }} variant="outlined" color="error">
+                    <Button
+                      onClick={() => handleDelete(user._id)}
+                      sx={{ ml: 1 }}
+                      variant="outlined"
+                      color="error"
+                    >
                       <Delete />
                     </Button>
                   </div>

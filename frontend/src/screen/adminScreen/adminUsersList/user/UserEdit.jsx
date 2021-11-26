@@ -1,15 +1,13 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
+
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Alert,
   Checkbox,
   CircularProgress,
   FormControlLabel,
+  Button,
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import {
@@ -17,9 +15,11 @@ import {
   useUpdateUserMutation,
 } from "../../../../store/usersStore/usersStore";
 import { useState, useEffect } from "react";
+import "./userEdit.scss";
 
-export default function UserEdit({ id }) {
-  const [open, setOpen] = useState(false);
+export default function UserEdit() {
+  const navigate = useNavigate();
+  const id = useParams().id;
   const {
     data: singleUser,
     isSuccess,
@@ -45,13 +45,6 @@ export default function UserEdit({ id }) {
     isAdmin: false,
   });
   const { name, email, isAdmin } = userInfo;
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleValue = (e) => {
     if (e.target.name === "isAdmin") {
@@ -61,7 +54,8 @@ export default function UserEdit({ id }) {
     }
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
     updateUser({ id, ...userInfo });
   };
 
@@ -75,21 +69,19 @@ export default function UserEdit({ id }) {
     }
 
     if (updateSuccess) {
-      setOpen(false);
+      navigate("/admin/users");
     }
   }, [isSuccess, singleUser, updateSuccess]);
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        <Edit />
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
+    <div className="userEdit">
+      <div className="user-container">
+        <div className="title">
           Edit User {isLoading && <CircularProgress />}{" "}
-        </DialogTitle>
+        </div>
         {isError && <Alert>{error}</Alert>}
-        <DialogContent>
+
+        <form onSubmit={handleUpdate}>
           <TextField
             autoFocus
             margin="dense"
@@ -124,18 +116,12 @@ export default function UserEdit({ id }) {
             }
             label="isAdmin"
           />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button
-            onClick={() => {
-              handleUpdate();
-            }}
-          >
+
+          <Button fullWidth variant="contained" type="submit">
             Update
           </Button>
-        </DialogActions>
-      </Dialog>
+        </form>
+      </div>
     </div>
   );
 }

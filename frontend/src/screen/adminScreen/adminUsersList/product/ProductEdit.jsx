@@ -18,10 +18,12 @@ import {
   Select,
   TextareaAutosize,
 } from "@mui/material";
-import { Edit } from "@mui/icons-material";
+import { Edit, NavigateBefore } from "@mui/icons-material";
+import "./productEdit.scss";
 
 import { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   useGetSingleProductQuery,
   useUpdateProductMutation,
@@ -43,7 +45,10 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductEdit({ id }) {
+export default function ProductEdit() {
+  const navigate = useNavigate();
+  const id = useParams().id;
+  console.log("id", id);
   const classes = useStyle();
   const [productInfo, setProductInfo] = useState({
     title: "",
@@ -52,9 +57,8 @@ export default function ProductEdit({ id }) {
     category: "",
     image: "",
   });
-  console.log("edit product part ", productInfo);
   const { title, price, description, category, image } = productInfo;
-  const [open, setOpen] = useState(false);
+
   // get all categories
   const {
     data: allCategories,
@@ -83,22 +87,13 @@ export default function ProductEdit({ id }) {
     },
   ] = useUpdateProductMutation();
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleValue = (e) => {
     setProductInfo({ ...productInfo, [e.target.name]: e.target.value });
-    console.log(productInfo, "product info here");
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
     updateProduct({ id, ...productInfo });
-    console.log({ id, ...productInfo });
   };
 
   const handleUpload = async (e) => {
@@ -124,111 +119,98 @@ export default function ProductEdit({ id }) {
 
   useEffect(() => {
     if (isSuccess) {
-      // const { title, price, category, description, image } = singleProduct;
       setProductInfo(singleProduct);
     }
 
     if (updateSuccess) {
-      setOpen(false);
+      navigate("/admin/products");
     }
   }, [isSuccess, singleProduct, updateSuccess]);
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        <Edit />
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          Edit User {isLoading && <CircularProgress />}{" "}
-        </DialogTitle>
-        {isError && <Alert>{error}</Alert>}
-        {updateIsError && <Alert>{updateError}</Alert>}
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Product Title"
-            type="text"
-            name="title"
-            value={title}
-            fullWidth
-            variant="standard"
-            onChange={handleValue}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="product Price"
-            type="text"
-            name="price"
-            value={price}
-            fullWidth
-            variant="standard"
-            onChange={handleValue}
-          />
+    <div className="productEdit">
+      <div className="title">
+        Edit Product {isLoading && <CircularProgress />}{" "}
+      </div>
 
-          <FormControl fullWidth variant="standard" sx={{ my: 2 }}>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              name="category"
-              value={category}
-              label="Category"
-              onChange={handleValue}
-            >
-              {catSuccess &&
-                allCategories.map((category) => (
-                  <MenuItem key={category._id} value={category.name}>
-                    {category.name}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
+      {isError && <Alert>{error}</Alert>}
+      {updateIsError && <Alert>{updateError}</Alert>}
+      <form onSubmit={handleUpdate}>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Product Title"
+          type="text"
+          name="title"
+          value={title}
+          fullWidth
+          variant="standard"
+          onChange={handleValue}
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="product Price"
+          type="text"
+          name="price"
+          value={price}
+          fullWidth
+          variant="standard"
+          onChange={handleValue}
+        />
 
-          <div className={classes.upload}>
-            <label htmlFor="contained-button-file">
-              <Input
-                sx={{ display: "none" }}
-                accept="image/*"
-                id="contained-button-file"
-                multiple
-                type="file"
-                onChange={handleUpload}
-              />
-              <Button variant="contained" component="span">
-                Upload
-              </Button>
-            </label>
-            <img className={classes.img} src={image} alt="" />
-          </div>
-
-          <TextField
-            fullWidth
-            id="standard-multiline-static"
-            label="Product Description"
-            multiline
-            rows={4}
-            value={description}
-            variant="standard"
+        <FormControl fullWidth variant="standard" sx={{ my: 2 }}>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            name="category"
+            value={category}
+            label="Category"
             onChange={handleValue}
-            name="description"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button
-            onClick={() => {
-              handleUpdate();
-            }}
           >
-            Update
-          </Button>
-        </DialogActions>
-      </Dialog>
+            {catSuccess &&
+              allCategories.map((category) => (
+                <MenuItem key={category._id} value={category.name}>
+                  {category.name}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+
+        <div className={classes.upload}>
+          <label htmlFor="contained-button-file">
+            <Input
+              sx={{ display: "none" }}
+              accept="image/*"
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={handleUpload}
+            />
+            <Button variant="contained" component="span">
+              Upload
+            </Button>
+          </label>
+          <img className={classes.img} src={image} alt="" />
+        </div>
+
+        <TextField
+          fullWidth
+          id="standard-multiline-static"
+          label="Product Description"
+          multiline
+          rows={10}
+          value={description}
+          variant="standard"
+          onChange={handleValue}
+          name="description"
+        />
+
+        <button type="submit">Update</button>
+      </form>
     </div>
   );
 }

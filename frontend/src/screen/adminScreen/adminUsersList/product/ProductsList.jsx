@@ -167,7 +167,15 @@ const ProductsList = () => {
                           </td>
                           <td data-label="Update">
                             <div className="actions">
-                              <ProductEdit id={product._id} />
+                              <Button
+                                onClick={() =>
+                                  navigate(`/admin/product/${product._id}/edit`)
+                                }
+                                variant="contained"
+                                color="success"
+                              >
+                                Edit
+                              </Button>
 
                               <Button
                                 onClick={() => handleDelete(product._id)}
