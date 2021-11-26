@@ -168,9 +168,7 @@ const AddProduct = () => {
             cols="50"
           ></textarea>
         </div>
-        <Button type="submit" fullWidth variant="contained" color="success">
-          Add Product
-        </Button>
+        <button type="submit">Add Product</button>
       </form>
     </div>
   );

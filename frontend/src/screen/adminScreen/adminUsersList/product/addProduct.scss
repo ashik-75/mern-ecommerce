@@ -75,6 +75,16 @@
         border-radius: 5px;
       }
     }
+    button {
+      width: 100%;
+      border: none;
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      margin-bottom: 50px;
+    }
   }
   @media screen and (max-width: 600px) {
     form {

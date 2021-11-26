@@ -45,13 +45,14 @@ const useStyle = makeStyles((theme) => ({
 
 export default function ProductEdit({ id }) {
   const classes = useStyle();
-  const [productInfo, setProductInfo] = React.useState({
+  const [productInfo, setProductInfo] = useState({
     title: "",
     price: "",
     descriptin: "",
     category: "",
     image: "",
   });
+  console.log("edit product part ", productInfo);
   const { title, price, description, category, image } = productInfo;
   const [open, setOpen] = useState(false);
   // get all categories
@@ -123,8 +124,8 @@ export default function ProductEdit({ id }) {
 
   useEffect(() => {
     if (isSuccess) {
-      const { title, price, category, description, image } = singleProduct;
-      setProductInfo({ title, price, category, description, image });
+      // const { title, price, category, description, image } = singleProduct;
+      setProductInfo(singleProduct);
     }
 
     if (updateSuccess) {

@@ -167,7 +167,7 @@ const ProductsList = () => {
                           </td>
                           <td data-label="Update">
                             <div className="actions">
-                              {product?._id && <ProductEdit id={product._id} />}
+                              <ProductEdit id={product._id} />
 
                               <Button
                                 onClick={() => handleDelete(product._id)}
