@@ -115,7 +115,12 @@ const AddProduct = () => {
           />
         </div>
         <div className="form-control">
-          <select name="category" value={category} onChange={handleAddValue}>
+          <select
+            name="category"
+            value={category}
+            onChange={handleAddValue}
+            style={{ height: "60px" }}
+          >
             <option value="" disabled>
               Choose Types ....
             </option>

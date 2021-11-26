@@ -75,7 +75,6 @@ const ProductsList = () => {
     if (!category) {
       setWarning(true);
     } else {
-      console.log(category);
       addcategory({ name: category });
       setCategory("");
 
@@ -168,7 +167,8 @@ const ProductsList = () => {
                           </td>
                           <td data-label="Update">
                             <div className="actions">
-                              <ProductEdit id={product._id} />
+                              {product?._id && <ProductEdit id={product._id} />}
+
                               <Button
                                 onClick={() => handleDelete(product._id)}
                                 variant="contained"

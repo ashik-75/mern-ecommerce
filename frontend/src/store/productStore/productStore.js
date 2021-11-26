@@ -45,7 +45,6 @@ export const productStore = createApi({
     }),
     addProduct: builder.mutation({
       query: (body) => {
-        console.log("rtk body: ", body);
         return {
           url: "/api/products",
           method: "POST",

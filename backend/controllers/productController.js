@@ -20,7 +20,7 @@ const removeProduct = asyncHandler(async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { title, price, image, category, description } = req.body;
-  console.log(req.body);
+
   const product = await Product.findById(req.params.id);
 
   if (product) {
