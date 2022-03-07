@@ -13,7 +13,6 @@ const storage = multer.diskStorage({
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    console.log(file);
     const extName = path.extname(file.originalname);
     const fileName =
       file.originalname
@@ -41,7 +40,6 @@ function findFileType(file, cb) {
       : false;
 
   if (extname && checkMimeType) {
-    console.log("type true");
     return cb(null, true);
   } else {
     return cb("Only jpg/jpeg/png file allowed");
